@@ -1,7 +1,23 @@
 {
   "seminars": [
     {
-      "id": "3",
+      "id": 1,
+      "title": "Новинки Kosmoteros",
+      "description": "Обзор новых средств и методик от Kosmoteros.",
+      "date": "01.02.2025",
+      "time": "10:00",
+      "photo": "https://kosmoteros.ru/upload/resize_cache/iblock/549/4biwja1p7u1okx99qxgfv052py73bjzz/1024_1024_0/dr1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Семинар по инновациям в косметологии",
+      "description": "Разбор новейших тенденций в косметологии и трендовых продуктов.",
+      "date": "03.02.2025",
+      "time": "11:00",
+      "photo": "https://kosmoteros.ru/upload/resize_cache/iblock/0f5/7kv69z6pt1ztrfi7ym2pl1xu6xeffb4q/950_950_0/сыворотка-с-каплямиweb(634х412).jpg"
+    },
+    {
+      "id": 3,
       "title": "Технологии ухода за кожей",
       "description": "Изучение современных методик ухода за кожей с применением новейших технологий.",
       "date": "05.02.2025",
@@ -9,15 +25,15 @@
       "photo": "https://kosmoteros.ru/upload/iblock/0f1/mrx1xbsv7m8y1q90hipb7d8ilne8hksj/Банер%20новинка-3.jpg"
     },
     {
-      "id": "4",
+      "id": 4,
       "title": "Актуальные тренды в бьюти-индустрии",
       "description": "Обсуждение современных трендов и методик в бьюти-индустрии.",
-      "date": "2025-02-28",
+      "date": "07.02.2025",
       "time": "13:00",
       "photo": "https://kosmoteros.ru/upload/resize_cache/iblock/432/z6lrsutxikai566z38c4awm2uckwzccv/950_950_0/dr2.jpg"
     },
     {
-      "id": "5",
+      "id": 5,
       "title": "Секреты профессионалов Kosmoteros",
       "description": "Семинар с участием ведущих специалистов по использованию средств Kosmoteros.",
       "date": "09.02.2025",
@@ -25,7 +41,7 @@
       "photo": "https://kosmoteros.ru/upload/resize_cache/iblock/886/gmfs25zwqba6uhgo5qoowycbceqj2vvb/950_950_0/сыворотки%20закрытые%20web%20(475х300).jpg"
     },
     {
-      "id": "6",
+      "id": 6,
       "title": "Эффективные методики омоложения",
       "description": "Обучение современным методикам омоложения и ухода за кожей.",
       "date": "11.02.2025",
@@ -33,7 +49,7 @@
       "photo": "https://kosmoteros.ru/upload/resize_cache/iblock/549/4biwja1p7u1okx99qxgfv052py73bjzz/1024_1024_0/dr1.jpg"
     },
     {
-      "id": "7",
+      "id": 7,
       "title": "Инновационные средства Kosmoteros",
       "description": "Демонстрация новых продуктов Kosmoteros и их уникальных свойств.",
       "date": "13.02.2025",
@@ -41,23 +57,23 @@
       "photo": "https://kosmoteros.ru/upload/resize_cache/iblock/0f5/7kv69z6pt1ztrfi7ym2pl1xu6xeffb4q/950_950_0/сыворотка-с-каплямиweb(634х412).jpg"
     },
     {
-      "id": "8",
+      "id": 8,
       "title": "Современные тренды в уходе за кожей",
       "description": "Семинар о новейших трендах в уходе за кожей и эффективных методах лечения.",
-      "date": "2025-03-02",
+      "date": "15.02.2025",
       "time": "17:00",
       "photo": "https://kosmoteros.ru/upload/iblock/0f1/mrx1xbsv7m8y1q90hipb7d8ilne8hksj/Банер%20новинка-3.jpg"
     },
     {
-      "id": "9",
+      "id": 9,
       "title": "Мастер-класс от Kosmoteros",
       "description": "Практический мастер-класс по использованию инновационных косметических средств.",
-      "date": "2025-02-20",
-      "time": "18:01",
+      "date": "17.02.2025",
+      "time": "18:00",
       "photo": "https://kosmoteros.ru/upload/resize_cache/iblock/432/z6lrsutxikai566z38c4awm2uckwzccv/950_950_0/dr2.jpg"
     },
     {
-      "id": "10",
+      "id": 10,
       "title": "Будущее косметологии с Kosmoteros",
       "description": "Обсуждение перспектив развития косметологии и роли инноваций.",
       "date": "19.02.2025",
