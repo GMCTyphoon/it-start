@@ -9,9 +9,8 @@ export interface Seminar {
   photo: string;
 }
 
-interface SeminarCardProps extends Seminar {
+export interface SeminarCardProps extends Seminar {
   handleStartDelete: (id: number) => void;
-  buttonDisabled: boolean;
   handleStartEdit: (id: number) => void;
 }
 
@@ -23,7 +22,6 @@ export const SeminarCard: FC<SeminarCardProps> = ({
   time,
   photo,
   handleStartDelete,
-  buttonDisabled,
   handleStartEdit,
 }) => {
   const formatDate = (dateString: string) => {
@@ -81,7 +79,6 @@ export const SeminarCard: FC<SeminarCardProps> = ({
             </svg>
           </button>
           <button
-            disabled={buttonDisabled}
             onClick={() => handleStartDelete(id)}
             className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition-colors disabled:opacity-50 cursor-pointer"
           >

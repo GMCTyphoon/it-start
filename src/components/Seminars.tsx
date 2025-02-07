@@ -1,9 +1,10 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { Seminar, SeminarCard } from './SeminarCard';
+import { Seminar } from './SeminarCard';
 import useHttp from '../hooks/useHttp';
-import Modal from '../UI/Modal';
 import ErrorBlock from '../UI/ErrorBlock';
 import SeminarForm, { SeminarFormProps } from './SeminarForm';
+import { SeminarsList } from './SeminarsList';
+import { SeminarDeleteModal } from './SeminarsDelete';
 
 const requestConfig = {};
 const initialSeminar = {
@@ -17,15 +18,15 @@ const initialSeminar = {
 
 export const Seminars: FC = () => {
   const selectedId = useRef<number>(1);
+  const [seminars, setSeminars] = useState<Seminar[]>([]);
   const [errorUpdatingSeminar, setErrorUpdatingSeminar] = useState<{
     message: string;
   }>({ message: '' });
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [seminars, setSeminars] = useState<Seminar[]>([]);
   const [selectedSeminar, setSelectedSeminar] =
     useState<Seminar>(initialSeminar);
-  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState<boolean>(false);
   const { data, isLoading, error } = useHttp(
     'http://localhost:3000/seminars',
     requestConfig,
@@ -49,23 +50,21 @@ export const Seminars: FC = () => {
 
   const handleDeleteSeminar = async () => {
     try {
-      setDeleteLoading(true);
+      setIsDeleteLoading(true);
       await fetch(`http://localhost:3000/seminars/${selectedId.current}`, {
         method: 'DELETE',
       });
       setSeminars((prevSeminars) =>
         prevSeminars.filter((seminar) => seminar.id !== selectedId.current)
       );
-      setDeleteLoading(false);
+      setIsDeleteLoading(false);
       setIsDeleting(false);
     } catch (error) {
-      setDeleteLoading(false);
-      if (error) {
-        console.log(error);
-        setErrorUpdatingSeminar({
-          message: (error as Error).message || 'Failed to delete seminar.',
-        });
-      }
+      setIsDeleteLoading(false);
+      console.warn(error);
+      setErrorUpdatingSeminar({
+        message: (error as Error).message || 'Failed to delete seminar.',
+      });
       setSeminars(seminars);
     }
   };
@@ -141,7 +140,7 @@ export const Seminars: FC = () => {
       />
     );
 
-  if (!seminars || seminars.length === 0)
+  if (seminars.length === 0)
     return (
       <h1 className="p-8 text-center text-xl">
         Нет семинаров на ближайшее время
@@ -150,63 +149,19 @@ export const Seminars: FC = () => {
 
   return (
     <>
-      <Modal
-        open={errorUpdatingSeminar.message.length > 0}
-        onClose={handleError}
-      >
-        <div className="bg-white gap-2 p-6 rounded-lg shadow-lg max-w-md w-full mx-auto">
-          <ErrorBlock
-            title="Ошибка при удалении"
-            message={errorUpdatingSeminar.message}
-          />
-          <form method="dialog" className="flex justify-end">
-            <button
-              className="button px-4 py-2 bg-red-700 text-white rounded hover:bg-red-900 transition-colors cursor-pointer"
-              onClick={handleStopDelete}
-            >
-              Ок
-            </button>
-          </form>
-        </div>
-      </Modal>
-      <Modal onClose={handleStopDelete} open={isDeleting}>
-        <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full mx-auto">
-          <h2 className="text-xl font-bold mb-4">Вы уверены?</h2>
-          <p className="text-gray-700 mb-6">
-            Вы действительно хотите удалить семинар?
-          </p>
-          <div className="form-actions flex justify-end space-x-4">
-            {deleteLoading && <p className="text-gray-600">Удаление...</p>}
-            {!deleteLoading && (
-              <>
-                <button
-                  onClick={handleStopDelete}
-                  className="button-text px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors cursor-pointer"
-                >
-                  Омена
-                </button>
-                <button
-                  onClick={handleDeleteSeminar}
-                  className="button px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors cursor-pointer"
-                >
-                  Удалить
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      </Modal>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-        {seminars.map((seminar: Seminar) => (
-          <SeminarCard
-            key={seminar.id}
-            {...seminar}
-            handleStartDelete={() => handleStartDelete(seminar.id)}
-            buttonDisabled={deleteLoading}
-            handleStartEdit={() => handleStartEdit(seminar.id)}
-          />
-        ))}
-      </div>
+      <SeminarDeleteModal
+        errorUpdatingSeminar={errorUpdatingSeminar}
+        handleDeleteSeminar={handleDeleteSeminar}
+        handleError={handleError}
+        handleStopDelete={handleStopDelete}
+        isDeleting={isDeleting}
+        isDeleteLoading={isDeleteLoading}
+      />
+      <SeminarsList
+        seminars={seminars}
+        handleStartDelete={handleStartDelete}
+        handleStartEdit={handleStartEdit}
+      />
       <SeminarForm
         seminar={selectedSeminar}
         onSubmit={handleSubmit}

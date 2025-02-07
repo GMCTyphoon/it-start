@@ -1,11 +1,7 @@
 import { Seminars } from './components/Seminars';
 
 function App() {
-  return (
-    <>
-      <Seminars />
-    </>
-  );
+  return <Seminars />;
 }
 
 export default App;
