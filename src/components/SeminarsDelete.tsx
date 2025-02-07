@@ -54,7 +54,7 @@ export const SeminarDeleteModal: FC<SeminarDeleteModalProps> = ({
                   onClick={handleStopDelete}
                   className="button-text px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors cursor-pointer"
                 >
-                  Омена
+                  Отмена
                 </button>
                 <button
                   onClick={handleDeleteSeminar}

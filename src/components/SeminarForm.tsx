@@ -13,13 +13,47 @@ export interface SeminarFormProps {
 
 const requestConfig = { method: 'PATCH' };
 
+const INPUTS = [
+  {
+    id: 'image',
+    name: 'photo',
+    type: 'url',
+    label: 'Картинка',
+  },
+  {
+    id: 'title',
+    name: 'title',
+    type: 'text',
+    label: 'Заголовок семинара',
+  },
+  {
+    id: 'description',
+    name: 'description',
+    type: 'text',
+    label: 'Описание',
+  },
+  {
+    id: 'date',
+    name: 'date',
+    type: 'date',
+    label: 'Дата',
+    cb: (date: string | number) =>
+      date.toString().split('.').reverse().join('-'),
+  },
+  {
+    id: 'time',
+    name: 'time',
+    type: 'time',
+    label: 'Время',
+  },
+];
+
 export default function SeminarForm({
   seminar,
   onSubmit,
   isEditing,
   handleStopEdit,
 }: SeminarFormProps) {
-  const formattedDate = seminar.date.split('.').reverse().join('-');
   const [errorEditingSeminar, setErrorEditingSeminar] = useState<{
     message: string;
   }>({ message: '' });
@@ -39,7 +73,7 @@ export default function SeminarForm({
     const formData = new FormData(event.currentTarget);
     const input = Object.fromEntries(formData);
     const data = {
-      id: seminar?.id as number,
+      id: seminar.id as number,
       title: input.title as string,
       description: input.description as string,
       date: input.date as string,
@@ -83,89 +117,28 @@ export default function SeminarForm({
           onSubmit={handleSubmit}
           className="rounded overflow-hidden shadow-lg bg-white p-6"
         >
-          <div className="mb-4">
-            <label
-              htmlFor="image"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Картинка
-            </label>
-            <input
-              required
-              type="url"
-              id="image"
-              name="photo"
-              defaultValue={seminar.photo}
-              className="w-full px-3 py-2 border rounded text-gray-700 focus:outline-none focus:border-blue-500"
-            />
-          </div>
+          {INPUTS.map((input) => (
+            <div key={input.id} className="mb-4">
+              <label
+                htmlFor={input.id}
+                className="block text-gray-700 text-sm font-bold mb-2"
+              >
+                {input.name}
+              </label>
+              <input
+                required
+                type={input.type}
+                id={input.id}
+                name={input.name}
+                defaultValue={
+                  input?.cb?.(seminar[input.name as keyof Seminar]) ||
+                  seminar[input.name as keyof Seminar]
+                }
+                className="w-full px-3 py-2 border rounded text-gray-700 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+          ))}
 
-          <div className="mb-4">
-            <label
-              htmlFor="title"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Заголовок семинара
-            </label>
-            <input
-              required
-              type="text"
-              name="title"
-              id="title"
-              defaultValue={seminar.title}
-              className="w-full px-3 py-2 border rounded text-gray-700 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="description"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Описание
-            </label>
-            <input
-              required
-              type="text"
-              name="description"
-              id="description"
-              defaultValue={seminar.description}
-              className="w-full px-3 py-2 border rounded text-gray-700 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="date"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Дата
-            </label>
-            <input
-              required
-              type="date"
-              name="date"
-              id="date"
-              defaultValue={formattedDate}
-              className="w-full px-3 py-2 border rounded text-gray-700 focus:outline-none focus:border-blue-500"
-            />
-          </div>
-
-          <div className="mb-6">
-            <label
-              htmlFor="time"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Время
-            </label>
-            <input
-              required
-              type="time"
-              name="time"
-              id="time"
-              defaultValue={seminar.time}
-              className="w-full px-3 py-2 border rounded text-gray-700 focus:outline-none focus:border-blue-500"
-            />
-          </div>
           {!isLoading && (
             <button
               type="submit"

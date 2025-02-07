@@ -98,8 +98,7 @@ export const Seminars: FC = () => {
     setIsEditing(false);
   };
 
-  if (isLoading)
-    //скелетон
+  const Skeleton: FC = () => {
     return (
       <div
         role="status"
@@ -130,6 +129,9 @@ export const Seminars: FC = () => {
         <span className="sr-only">Loading...</span>
       </div>
     );
+  };
+
+  if (isLoading) return <Skeleton />;
 
   if (error)
     //блок с ошибкой
